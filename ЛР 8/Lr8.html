@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Мясников К. Ю. ЛР8</title>
+
+    <!-- 🔹 React 18 + ReactDOM -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <!-- 🔹 Babel для JSX -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <style>
+        body { font-family: system-ui, sans-serif; max-width: 800px; margin: 2rem auto; padding: 0 1rem; line-height: 1.5; color: #333; }
+        header { text-align: center; margin-bottom: 1.5rem; }
+        header img { max-width: 150px; margin-bottom: 1rem; }
+        .blocks { display: flex; gap: 1rem; flex-wrap: wrap; margin: 1.5rem 0; }
+        .block { flex: 1; min-width: 200px; padding: 1rem; border: 1px solid #ddd; border-radius: 8px; text-align: center; background: #fafafa; }
+        .block img { width: 100%; height: 150px; object-fit: cover; border-radius: 6px; margin-bottom: 0.8rem; }
+        form { display: flex; flex-direction: column; gap: 0.8rem; max-width: 400px; margin-top: 1.5rem; }
+        input, button { padding: 0.6rem; font-size: 1rem; border: 1px solid #ccc; border-radius: 4px; }
+        button { background: #007bff; color: white; border: none; cursor: pointer; }
+        button:hover { background: #0056b3; }
+        a { color: #007bff; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <!-- ⚛️ JSX-код приложения -->
+    <script type="text/babel">
+        const { useState } = React;
+
+        function App() {
+            const [form, setForm] = useState({ name: '', email: '', phone: '' });
+
+            const handleChange = (e) => {
+                setForm({ ...form, [e.target.name]: e.target.value });
+            };
+
+            const handleSubmit = (e) => {
+                e.preventDefault();
+                alert(`Спасибо, ${form.name}! Мы свяжемся с вами по номеру ${form.phone}.`);
+                setForm({ name: '', email: '', phone: '' });
+            };
+
+            return (
+                <div>
+                    <header>
+                        {/* 👇 ЗАМЕНИТЕ пути на те, что были в вашем исходном HTML */}
+                        <img src="img/logo.png" alt="Логотип" />
+                        <h1>Мясников К. Ю. ЛР8</h1>
+                    </header>
+
+                    <p>Сделаем то, что нужно</p>
+                    <p>Наемное агенство КЮМ выполним любую поставленную задачу</p>
+                    <a href="#">Узнать больше...</a>
+
+                    <h2>Что Вам необходимо?</h2>
+                    <div className="blocks">
+                        <div className="block">
+                            <img src="img/f3.png" alt="Блок 1"  style={{ width: '70%', height: '150px', objectFit: 'cover', borderRadius: '15px' }}/>
+                            <h3>Первый блок</h3>
+                            <p>Текст блока1</p>
+                        </div>
+                        <div className="block">
+                            <img src="img/f4.png" alt="Блок 2"  style={{ width: '70%', height: '150px', objectFit: 'cover', borderRadius: '15px' }}/>
+                            <h3>Второй блок</h3>
+                            <p>Текст блока2</p>
+                        </div>
+                        <div className="block">
+                            <img src="img/f5.png" alt="Блок 3"  style={{ width: '70%', height: '150px', objectFit: 'cover', borderRadius: '15px' }}/>
+                            <h3>Третий блок</h3>
+                            <p>Текст блока3</p>
+                        </div>
+                    </div>
+
+                    <h2>Форма заказа обратного звонка</h2>
+                    <form onSubmit={handleSubmit}>
+                        <input name="name" type="text" placeholder="Введите имя (мин. 2 символа)." minLength="2" value={form.name} onChange={handleChange} required />
+                        <input name="email" type="email" placeholder="Введите корректный E-mail." value={form.email} onChange={handleChange} required />
+                        <input name="phone" type="tel" placeholder="Введите номер телефона (например, +79001234567)." value={form.phone} onChange={handleChange} required />
+                        <button type="submit">Отправить вопрос!</button>
+                    </form>
+                </div>
+            );
+        }
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>
